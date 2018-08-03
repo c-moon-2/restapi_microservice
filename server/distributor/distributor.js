@@ -1,6 +1,6 @@
 class distributor extends require('../../project_module/server_client_framework/server') {
 
-    constructor(name, uri) {
+    constructor() {
         super(process.argv[2] ? Number(process.argv[2]) : 9000, "distributor", ["GET/ditributes", "POST/distributes"]);
         this.microInfo = {};
         this.gateSocket = null;
