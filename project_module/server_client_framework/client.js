@@ -7,7 +7,7 @@ class client {
         this.onCreate = onCreate;
         this.onError = onError;
         this.onClose = onClose;
-        this.onRead = (data) => { console.log(data) };
+        this.onRead = onRead;
     }
     connect() {
         this.client = net.connect(this.PORT, this.IP, () => {
@@ -36,7 +36,7 @@ class client {
             //log에 남긴다.
         })
         this.client.on('close', () => {
-            this.onClose();
+            this.onClose(this.IP, this.PORT);
             console.log(new Date(), "server connect fail");
             //log에 남긴다.
         })

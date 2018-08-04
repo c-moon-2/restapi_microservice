@@ -61,5 +61,8 @@ class server {
             }
         }, 3000)
     }
+    onClose(socket) {
+        console.log("Detect to disconnect on", socket.remoteAddress, ":", socket.remotePort);
+    }
 }
 module.exports = server;

@@ -7,24 +7,28 @@ module.exports = (method, uri, params, callback) => {
                 findMember(params, (response) => {
                     process.nextTick(callback, response);
                 });
+
             } else if (uri === "/member") {
                 registMember(params, (response) => {
                     process.nextTick(callback, response);
                 })
             }
+            break;
         case "PUT":
             updateMember(params, (response) => {
                 process.nextTick(callback, response);
             })
+            break;
         case "DELETE":
             deleteMember(params, (response) => {
                 process.nextTick(callback, response);
             })
+            break;
     }
 }
 
 function findMember(params, callback) {
-    DAOmember.findMember(params.id, params.member, callback)
+    DAOmember.findMember(params.id, params.pw, callback)
 }
 
 function registMember(params, callback) {
