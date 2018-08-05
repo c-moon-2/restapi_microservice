@@ -12,8 +12,20 @@ var pool = mysql.createPool({
 pool.query("set time_zone = 'Asia/Seoul'", function(err, results, fields) {});
 
 module.exports = {
-    findMember(id, pw, callback) {
-        pool.query('select _id, _name from member where _id=? and _password=password(?)', [id, pw], (err, results, fields) => {
+    listGoods(callback) {
+        pool.query('select _goodsnum, _goodsname, _goodsprice, _goodsThumbnail from goods', (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                callback("err");
+            } else if (results.length === 0) {
+                callback("fail");
+            } else {
+                callback(results);
+            }
+        })
+    },
+    findGoodsinfo(goodsNum, callback) {
+        pool.query('select * from goods where _goodsNum=?', [goodsNum], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
@@ -24,8 +36,8 @@ module.exports = {
             }
         })
     },
-    registMember(id, pw, name, callback) {
-        pool.query('insert into member set _id=?, _password=password(?), _name=? ', [id, pw, name], (err, results, fields) => {
+    registGoods(goodsName, goodsPrice, goodsThumbnail, goodsinfoimage, callback) {
+        pool.query('insert into goods set ?', { _goodsname: goodsName, _goodsprice: goodsPrice, _goodsthumbnail: goodsThumbnail, _goodsinfoimage: goodsinfoimage }, (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
@@ -36,8 +48,8 @@ module.exports = {
             }
         })
     },
-    updateMember(id, pw, callback) {
-        pool.query('update member set _password=password(?) where _id=?', [pw, id], (err, results, fields) => {
+    updateGoods(goodsNum, goodsName, goodsPrice, goodsThumbnail, goodsinfoimage, callback) {
+        pool.query('update goods set ? where _goodsnum=?', [{ _goodsname: goodsName, _goodsprice: goodsPrice, _goodsthumbnail: goodsThumbnail, _goodsinfoimage: goodsinfoimage }, goodsNum], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
@@ -48,8 +60,8 @@ module.exports = {
             }
         })
     },
-    deleteMember(id, callback) {
-        pool.query('delete from member where _id=?', [id], (err, results, fields) => {
+    deleteGoods(goodsNum, callback) {
+        pool.query('delete from goods where _goodsnum=?', [goodsNum], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");

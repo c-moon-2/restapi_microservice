@@ -10,6 +10,7 @@ var gateInfo = {
 const client = require('../../project_module/server_client_framework/client');
 
 var MicroserverApiClient = global.MicroserverApiClient;
+var ConnectedNode = [];
 
 var server = http.createServer(expressLoader).listen(8000, () => {
     console.log("express server is working!! on PORT:8000")
@@ -23,10 +24,15 @@ var server = http.createServer(expressLoader).listen(8000, () => {
     }, () => {
         isConnectedToDistributor = false;
     }, (data) => {
-        for (var node in data) {
+        Node: for (var node in data) {
             var nodeInfo = data[node];
             if (nodeInfo.name === "gate") continue;
 
+            for (var El in ConnectedNode) {
+                if (ConnectedNode[El] === nodeInfo.IP + ":" + nodeInfo.port) {
+                    continue Node;
+                }
+            }
             var clientForMicroserver = new client(nodeInfo.IP, nodeInfo.port, () => {
 
             }, () => {
@@ -40,6 +46,7 @@ var server = http.createServer(expressLoader).listen(8000, () => {
                         }
                     }
                 }
+                ConnectedNode.splice(ConnectedNode.indexOf(IP + ":" + port), 1)
             }, (data) => {
                 var resQueue = global.resQueue;
                 var resNum = data.identifyNum;
@@ -47,21 +54,27 @@ var server = http.createServer(expressLoader).listen(8000, () => {
                 resQueue[resNum].write(JSON.stringify(data.responseData));
                 resQueue[resNum].end();
                 delete resQueue[resNum];
-                /*resNum = data.identifyNum;
-                console.log(JSON.stringify(data.responseData));
-                global.resQueue[resNum].writeHead(200, { 'Content-type': 'text/html; utf8' });
-                global.resQueue[resNum].write(JSON.stringify(data.responseData));
-                global.resQueue[resNum].end();
-                delete global.resQueue[resNum];*/
             })
             clientForMicroserver.connect();
+            ConnectedNode.push(nodeInfo.IP + ":" + nodeInfo.port)
             for (var El in nodeInfo.uri) {
                 if (MicroserverApiClient[nodeInfo.uri[El]] === undefined) {
                     MicroserverApiClient[nodeInfo.uri[El]] = [];
+                    MicroserverApiClient[nodeInfo.uri[El]].push({ client: clientForMicroserver, nodeInfo: nodeInfo.IP + ":" + nodeInfo.port });
                 }
-                MicroserverApiClient[nodeInfo.uri[El]].push({ client: clientForMicroserver, nodeInfo: nodeInfo.IP + ":" + nodeInfo.port });
+                if (MicroserverApiClient[nodeInfo.uri[El]].length === 0) {
+                    MicroserverApiClient[nodeInfo.uri[El]].push({ client: clientForMicroserver, nodeInfo: nodeInfo.IP + ":" + nodeInfo.port });
+                }
+
+                MicroserverApiClient[nodeInfo.uri[El]].forEach(function(clientInfo) {
+                    currentNodeInfo = nodeInfo.IP + ":" + nodeInfo.port;
+                    if (clientInfo.nodeInfo === currentNodeInfo) {
+
+                    } else {
+                        MicroserverApiClient[nodeInfo.uri[El]].push({ client: clientForMicroserver, nodeInfo: nodeInfo.IP + ":" + nodeInfo.port });
+                    }
+                })
             }
-            //console.log("gate", global.MicroserverApiClient);
         }
     })
 

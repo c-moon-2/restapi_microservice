@@ -1,8 +1,8 @@
 const memberBusiness = require('./member_business');
 
-class distributor extends require('../../../project_module/server_client_framework/server') {
+class member extends require('../../../project_module/server_client_framework/server') {
     constructor(name, uri) {
-        super(process.argv[2] ? Number(process.argv[2]) : 9010, "member", ["POST/login", "POST/member", "PUT/member", "DELETE/member"]);
+        super(process.argv[2] ? Number(process.argv[2]) : 9010, "member" + (process.argv[2] ? process.argv[2] : 9010), ["POST/login", "POST/member", "PUT/member", "DELETE/member"]);
         this.connectToDistributor("192.168.0.11", 9000);
     }
     onRead(socket, data) {
@@ -13,4 +13,4 @@ class distributor extends require('../../../project_module/server_client_framewo
         })
     }
 }
-new distributor();
+new member();

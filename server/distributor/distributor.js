@@ -23,9 +23,6 @@ class distributor extends require('../../project_module/server_client_framework/
         }
         console.log(this.microInfo[key].name, "server down!!");
         delete this.microInfo[key];
-        if (this.gateSocket !== null) {
-            this.gateSocket.write(JSON.stringify(this.microInfo) + "¶");
-        }
     }
 }
 new distributor();

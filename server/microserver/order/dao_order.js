@@ -12,20 +12,20 @@ var pool = mysql.createPool({
 pool.query("set time_zone = 'Asia/Seoul'", function(err, results, fields) {});
 
 module.exports = {
-    findMember(id, pw, callback) {
-        pool.query('select _id, _name from member where _id=? and _password=password(?)', [id, pw], (err, results, fields) => {
+    listOrder(orderId, callback) {
+        pool.query('select * from orders where _orderid=?', [orderId], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
-            } else if (results.length !== 1) {
+            } else if (results.length === 0) {
                 callback("fail");
             } else {
-                callback(results[0]);
+                callback(results);
             }
         })
     },
-    registMember(id, pw, name, callback) {
-        pool.query('insert into member set _id=?, _password=password(?), _name=? ', [id, pw, name], (err, results, fields) => {
+    registOrder(orderId, orderGoodsname, orderGoodsquantity, orderGoodspaymentprice, orderGoodsthumbnail, callback) {
+        pool.query('insert into orders set ?', { _orderid: orderId, _ordergoodsname: orderGoodsname, _ordergoodsquantity: orderGoodsquantity, _ordergoodspaymentprice: orderGoodspaymentprice, _ordergoodsthumbnail: orderGoodsthumbnail }, (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
@@ -36,20 +36,8 @@ module.exports = {
             }
         })
     },
-    updateMember(id, pw, callback) {
-        pool.query('update member set _password=password(?) where _id=?', [pw, id], (err, results, fields) => {
-            if (err) {
-                console.log(err);
-                callback("err");
-            } else if (results.changedRows === 0) {
-                callback("fail");
-            } else {
-                callback("success");
-            }
-        })
-    },
-    deleteMember(id, callback) {
-        pool.query('delete from member where _id=?', [id], (err, results, fields) => {
+    deleteOrder(orderNum, callback) {
+        pool.query('delete from orders where _ordernum=?', [orderNum], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");

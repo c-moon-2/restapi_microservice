@@ -1,22 +1,9 @@
 //var passport = require('../passport/strategy');
 
-var MicroserverApiClient = global.MicroserverApiClient;
-var resQueue = global.resQueue;
+//var MicroserverApiClient = global.MicroserverApiClient;
+//var resQueue = global.resQueue;
 
 module.exports = function(router) {
-    router.route('/login').post(function(req, res) {
-        resQueue[resQueue.Numbering] = res;
-        var Api = req.method + req.url;
-        var packet = {
-            identifyNum: resQueue.Numbering,
-            method: req.method,
-            uri: req.url,
-            params: { id: "asdf", pw: "asdf" }
-        }
-        MicroserverApiClient[Api][0].client.write(packet);
-        resQueue.Numbering++;
-    });
-
     /*router.route('/passport_mysql').get(function(req, res) {
         mysql.getContentList(0, (err, result) => {
             context = { title: "passport_mysql", loginErr: req.flash('login-fail'), sessionId: req.user, contentList: result[1], pagenation: result[0], curPage: 1 }
