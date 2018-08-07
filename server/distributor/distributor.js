@@ -1,7 +1,7 @@
 class distributor extends require('../../project_module/server_client_framework/server') {
 
     constructor() {
-        super(process.argv[2] ? Number(process.argv[2]) : 9000, "distributor", ["GET/ditributes", "POST/distributes"]);
+        super(process.argv[2] ? Number(process.argv[2]) : 9000, "distributor");
         this.microInfo = {};
         this.gateSocket = null;
     }
@@ -22,6 +22,7 @@ class distributor extends require('../../project_module/server_client_framework/
             this.gateSocket = null;
         }
         console.log(this.microInfo[key].name, "server down!!");
+        //로그에 남긴다.
         delete this.microInfo[key];
     }
 }

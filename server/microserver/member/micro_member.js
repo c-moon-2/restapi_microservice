@@ -6,6 +6,7 @@ class member extends require('../../../project_module/server_client_framework/se
         this.connectToDistributor("192.168.0.11", 9000);
     }
     onRead(socket, data) {
+        console.log("test");
         var packet = { identifyNum: data.identifyNum }
         memberBusiness(data.method, data.uri, data.params, (responseData) => {
             packet.responseData = responseData;

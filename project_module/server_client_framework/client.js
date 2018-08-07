@@ -11,10 +11,10 @@ class client {
     }
     connect() {
         this.client = net.connect(this.PORT, this.IP, () => {
-            this.onCreate();
             console.log(this.IP, ":", this.PORT, " - connect success");
             //console.log(new Date(), IP, ":", PORT, " - connect success");
             //log에 남긴다.
+            this.onCreate();
         });
         this.client.on("data", (data) => {
             var tempData = this.requestingData ? this.requestingData + data.toString() : data.toString();

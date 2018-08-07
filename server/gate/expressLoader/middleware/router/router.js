@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 global.MicroserverApiClient = {};
+global.ApiRequestCount = {};
 global.resQueue = { Numbering: 0 }
 
 router.route('/').get(function(req, res) {

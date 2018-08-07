@@ -1,6 +1,7 @@
 //var passport = require('../passport/strategy');
 
 var MicroserverApiClient = global.MicroserverApiClient;
+var ApiRequestCount = global.ApiRequestCount;
 var resQueue = global.resQueue;
 
 var makePacket = require('./makePacket');
@@ -13,8 +14,9 @@ module.exports = function(router) {
             resQueue.Numbering,
             req.method,
             req.url, { id: "asdf", pw: "asdf" }
-        )
-        MicroserverApiClient[Api][0].client.write(packet);
+        );
+        MicroserverApiClient[Api][ApiRequestCount[Api] % MicroserverApiClient[Api].length].client.write(packet);
+        ApiRequestCount[Api]++;
         resQueue.Numbering++;
     });
 

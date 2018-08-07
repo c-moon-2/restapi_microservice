@@ -10,6 +10,7 @@ var gateInfo = {
 const client = require('../../project_module/server_client_framework/client');
 
 var MicroserverApiClient = global.MicroserverApiClient;
+var ApiRequestCount = global.ApiRequestCount;
 var ConnectedNode = [];
 
 var server = http.createServer(expressLoader).listen(8000, () => {
@@ -24,6 +25,7 @@ var server = http.createServer(expressLoader).listen(8000, () => {
     }, () => {
         isConnectedToDistributor = false;
     }, (data) => {
+        console.log(data);
         Node: for (var node in data) {
             var nodeInfo = data[node];
             if (nodeInfo.name === "gate") continue;
@@ -61,6 +63,7 @@ var server = http.createServer(expressLoader).listen(8000, () => {
                 if (MicroserverApiClient[nodeInfo.uri[El]] === undefined) {
                     MicroserverApiClient[nodeInfo.uri[El]] = [];
                     MicroserverApiClient[nodeInfo.uri[El]].push({ client: clientForMicroserver, nodeInfo: nodeInfo.IP + ":" + nodeInfo.port });
+                    ApiRequestCount[nodeInfo.uri[El]] = 0;
                 }
                 if (MicroserverApiClient[nodeInfo.uri[El]].length === 0) {
                     MicroserverApiClient[nodeInfo.uri[El]].push({ client: clientForMicroserver, nodeInfo: nodeInfo.IP + ":" + nodeInfo.port });
@@ -75,6 +78,7 @@ var server = http.createServer(expressLoader).listen(8000, () => {
                     }
                 })
             }
+            console.log(MicroserverApiClient);
         }
     })
 

@@ -9,6 +9,7 @@ class server {
 
         this.server = net.createServer((socket) => {
             console.log(socket.remoteAddress, socket.remotePort, "- Server Connect!!");
+            //콘솔과 로그에 남긴다.
             socket.on('data', (data) => {
                 var tempData = this.requestingData ? this.requestingData + data.toString() : data.toString();
                 var tempDataArray = tempData.split("¶");
@@ -25,7 +26,6 @@ class server {
             })
             socket.on('close', () => {
                 this.onClose(socket);
-                console.log(socket.remotePort, "CLOSE!!");
             });
         }).listen(PORT, () => {
             console.log(name, "server is working :", PORT)
@@ -57,12 +57,14 @@ class server {
         setInterval(() => {
             if (isConnectedToDistributor === false) {
                 console.log("try connecting Distributor Server");
+                //로그에 남긴다.
                 clientToDistributor.connect();
             }
         }, 3000)
     }
     onClose(socket) {
         console.log("Detect to disconnect on", socket.remoteAddress, ":", socket.remotePort);
+        //로그에 남긴다.
     }
 }
 module.exports = server;
