@@ -1,0 +1,133 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'Headliner';
+    src: url(Headliner.woff) format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Malgun Gothic';
+}
+
+#top-anchore {
+    background: white;
+    border-radius: 50%;
+    border: 4px solid #646464;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    left: 95vw;
+    top: 50%;
+    opacity: 0.8;
+}
+
+#top-anchore:link {
+    color: black;
+    text-decoration: none;
+}
+
+#top-anchore:hover {
+    color: black;
+    text-decoration: none;
+}
+
+#top-anchore:visited {
+    color: black;
+    text-decoration: none;
+}
+
+#nav1group {
+    text-align: right;
+    padding-right: 50px;
+    height: 60px
+}
+
+#nav1elgroup {
+    padding-top: 15px
+}
+
+.nav1 {
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.nav1:link {
+    color: #646464;
+    text-decoration: none;
+}
+
+.nav1:hover {
+    color: #646464;
+    text-decoration: none;
+}
+
+.nav1:visited {
+    color: #646464;
+    text-decoration: none;
+}
+
+#title {
+    background: black;
+    color: yellow;
+    font-family: Headliner;
+    font-size: 120px;
+    padding-bottom: 10px;
+    text-shadow: 7px 7px 10px #646464, -7px -7px 10px #646464, 7px -7px 10px #646464, -7px 7px 10px #646464;
+    width: 700px;
+    text-align: center;
+}
+
+#nav2group {
+    width: 100%;
+    padding-top: 30px
+}
+
+#nav2elgroup {
+    text-align: center
+}
+
+.nav2 {
+    font-size: 25px;
+    font-weight: 550;
+}
+
+.nav2:link {
+    color: black;
+    text-decoration: none;
+}
+
+.nav2:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.nav2:visited {
+    color: black;
+    text-decoration: none;
+}
+
+#footer {
+    border-top: 1px solid black;
+    padding-top: 30px;
+    margin-top: 35px
+}
+
+#footerlogspace {
+    padding-top: 15px
+}
+
+#footer-log {
+    background: black;
+    color: yellow;
+    font-family: Headliner;
+    font-size: 50px;
+    text-shadow: 5px 5px 10px #646464, -5px -5px 10px #646464, 5px -5px 10px #646464, -5px 5px 10px #646464;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+#footer-copyligth {
+    font-size: 14px;
+    color: #646464
+}

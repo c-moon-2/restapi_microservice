@@ -7,7 +7,7 @@ global.ApiRequestCount = {};
 global.resQueue = { Numbering: 0 }
 
 router.route('/').get(function(req, res) {
-    context = { title: "Maru Developer" }
+    context = { title: "Battle Rentacar" }
     res.render('index', context, function(err, html) {
         res.writeHead(200, { 'Content-type': 'text/html; utf8' });
         res.end(html);

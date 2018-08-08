@@ -2,6 +2,12 @@ const DAOmember = require('./dao_member');
 
 module.exports = (method, uri, params, callback) => {
     switch (method) {
+        case "GET":
+            if (uri === "/authid") {
+                authId(params, (response) => {
+                    process.nextTick(callback, response);
+                });
+            }
         case "POST":
             if (uri === "/login") {
                 findMember(params, (response) => {
@@ -27,8 +33,12 @@ module.exports = (method, uri, params, callback) => {
     }
 }
 
+function authId(params, callback) {
+    DAOmember.authId(params.id, callback);
+}
+
 function findMember(params, callback) {
-    DAOmember.findMember(params.id, params.pw, callback)
+    DAOmember.findMember(params.id, params.pw, callback);
 }
 
 function registMember(params, callback) {

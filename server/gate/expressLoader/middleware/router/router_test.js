@@ -7,6 +7,19 @@ var resQueue = global.resQueue;
 var makePacket = require('./makePacket');
 
 module.exports = function(router) {
+    router.route('/authid').get(function(req, res) {
+        resQueue[resQueue.Numbering] = res;
+        var Api = req.method + req.url;
+        var packet = makePacket(
+            resQueue.Numbering,
+            req.method,
+            req.url, { id: "bbb" }
+        );
+        MicroserverApiClient[Api][ApiRequestCount[Api] % MicroserverApiClient[Api].length].client.write(packet);
+        ApiRequestCount[Api]++;
+        resQueue.Numbering++;
+    });
+
     router.route('/login').post(function(req, res) {
         resQueue[resQueue.Numbering] = res;
         var Api = req.method + req.url;

@@ -25,7 +25,6 @@ var server = http.createServer(expressLoader).listen(8000, () => {
     }, () => {
         isConnectedToDistributor = false;
     }, (data) => {
-        console.log(data);
         Node: for (var node in data) {
             var nodeInfo = data[node];
             if (nodeInfo.name === "gate") continue;

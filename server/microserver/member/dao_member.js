@@ -12,6 +12,18 @@ var pool = mysql.createPool({
 pool.query("set time_zone = 'Asia/Seoul'", function(err, results, fields) {});
 
 module.exports = {
+    authId(id, callback) {
+        pool.query('select _id from member where _id=?', [id], (err, results, fields) => {
+            if (err) {
+                console.log(err);
+                callback("err");
+            } else if (results.length !== 0) {
+                callback("fail");
+            } else {
+                callback("success");
+            }
+        })
+    },
     findMember(id, pw, callback) {
         pool.query('select _id, _name from member where _id=? and _password=password(?)', [id, pw], (err, results, fields) => {
             if (err) {
