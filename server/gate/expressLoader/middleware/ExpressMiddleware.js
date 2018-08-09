@@ -1,9 +1,9 @@
 middlewares = {
     static: require('./static'),
     bodyParser: require('./bodyParser'),
+    methodOverride: require('./methodOverride'),
     cors: require('./cors'),
     session: require('./session'),
-    passport: require('./passport/passport_init'),
     router: require('./router/router'),
 }
 

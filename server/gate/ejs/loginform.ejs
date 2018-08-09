@@ -1,0 +1,44 @@
+
+<% include ./HeaderFooter/header.ejs %>
+
+<style>
+.introduction{
+    font-size:30px;
+}
+</style>
+
+    <section>
+        <article>
+            <div class="container">
+                <div class="row">
+                    <div class="col" align="center" style="padding-top:30px">
+                        <span style="font-weight:600;font-size:20px">로 그 인</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" align="center" >
+                        <div style="border:1px solid #646464;width:470px;margin-top:40px;padding-top:30px;padding-bottom:30px" >
+                            <form method="POST" action="/login">
+                                <div class="row">
+                                    <div class="col-sm-9" style="padding-left:28px">
+                                        <input type="text" name="id" class="form-control" placeholder="아 이 디" required style="margin-bottom:6px">
+                                        <input type="password" name="pw" class="form-control" placeholder="비밀번호" required>
+                                    </div>
+                                    <div class="col-sm-3" style="padding-left:0px" align="left">
+                                        <button type="submit" class="btn btn-dark" style="width:100px;height:80px">로그인</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <br>
+                                        <a href="registmemberform" class="btn btn-light text-primary" style="width:440px;" >회원가입</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <article>
+    </section>
+<% include ./HeaderFooter/footer.ejs %>

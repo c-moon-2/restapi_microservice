@@ -17,7 +17,7 @@
     text-align: center;
     padding: 10px;
     position: fixed;
-    left: 95vw;
+    left: 95%;
     top: 50%;
     opacity: 0.8;
     z-index: 1;
@@ -77,6 +77,18 @@
     text-shadow: 7px 7px 10px #646464, -7px -7px 10px #646464, 7px -7px 10px #646464, -7px 7px 10px #646464;
     width: 700px;
     text-align: center;
+}
+
+#titlelink:link {
+    text-decoration: none;
+}
+
+#titlelink:hover {
+    text-decoration: none;
+}
+
+#titlelink:visited {
+    text-decoration: none;
 }
 
 #nav2group {

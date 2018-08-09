@@ -51,9 +51,20 @@ var server = http.createServer(expressLoader).listen(8000, () => {
             }, (data) => {
                 var resQueue = global.resQueue;
                 var resNum = data.identifyNum;
-                resQueue[resNum].writeHead(200, { 'Content-type': 'text/html; utf8' });
-                resQueue[resNum].write(JSON.stringify(data.responseData));
-                resQueue[resNum].end();
+                if (resQueue[resNum].template === "login") {
+                    if (data.responseData === "fail") {
+                        resQueue[resNum].redirect("loginfail");
+                    } else {
+                        resQueue[resNum].req.session.userInfo = data.responseData;
+                        resQueue[resNum].redirect("/");
+                    }
+                } else {
+                    resQueue[resNum].context.serverData = data.responseData;
+                    resQueue[resNum].render(resQueue[resNum].template, resQueue[resNum].context, function(err, html) {
+                        resQueue[resNum].writeHead(200, { 'Content-type': 'text/html; utf8' });
+                        resQueue[resNum].end(html);
+                    });
+                }
                 delete resQueue[resNum];
             })
             clientForMicroserver.connect();
