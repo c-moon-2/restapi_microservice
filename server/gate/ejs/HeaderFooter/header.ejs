@@ -21,21 +21,29 @@
                 <div class="col-md">
                     <nav id="nav1group">
                         <div id="nav1elgroup">
+
 <%
-    if(userInfo){
+    if(!userInfo._id){
+%>
+                            <a href="/loginform" class="nav1">로그인</a>
+                            <a href="/registmemberform" class="nav1">회원가입</a>
+<%
+   }else if(userInfo._id==="admin"){
 %>
                             <span style="color:#646464;margin-right: 15px;font-size: 14px;"><%=userInfo._id%>님, 반갑습니다.</span>
-                            <a href="updatememberform" class="nav1">회원정보 수정</a>
-                            <a href="logout" class="nav1">로그아웃</a>
+                            <a href="/registgoodsform" class="nav1">상품 등록</a>
+                            <a href="/updatememberform" class="nav1">회원정보 수정</a>
+                            <a href="/logout" class="nav1">로그아웃</a>
 <%
     }else{
 %>
-                            <a href="loginform" class="nav1">로그인</a>
-                            <a href="registmemberform" class="nav1">회원가입</a>
+                            <span style="color:#646464;margin-right: 15px;font-size: 14px;"><%=userInfo._id%>님, 반갑습니다.</span>
+                            <a href="/updatememberform" class="nav1">회원정보 수정</a>
+                            <a href="/logout" class="nav1">로그아웃</a>
 <%
     }
 %>
-                            <a href="#" class="nav1">장바구니</a>
+                            <!--<a href="#" class="nav1">장바구니</a>-->
                             <a href="#" class="nav1">주문내역</a>
                         </div>
                     </nav>
@@ -43,7 +51,7 @@
             </div>
             <div class="row">
                 <div class="col-md" align="center">
-                    <a href="/" id="titlelink"><h1 id="title">battle&nbsp;&nbsp;&nbsp;Rentacar</h1></a>
+                    <h1><a href="/" class="title">battle&nbsp;&nbsp;&nbsp;Rentacar</a></h1>
                 </div>
             </div>
             <div class="row">
@@ -53,7 +61,7 @@
                             <a href="/introduction" class="nav2">Introduction</a>
                         </div>
                         <div class="col-sm">
-                            <a href="#" class="nav2">Shop</a>
+                            <a href="/goods" class="nav2">Shop</a>
                         </div>
                     </div>
                 </nav>

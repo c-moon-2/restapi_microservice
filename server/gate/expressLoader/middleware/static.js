@@ -5,4 +5,12 @@ module.exports = {
         path: "/",
         middleware: Serve_static("ejs")
     },
+    F_static1: {
+        path: "/goods",
+        middleware: Serve_static("ejs")
+    },
+    F_static2: {
+        path: "/updategoodsform",
+        middleware: Serve_static("ejs")
+    }
 }

@@ -9,7 +9,7 @@ module.exports = function(router) {
         if (req.session.userInfo) {
             res.redirect('/');
         } else {
-            context = { title: "login form", userInfo: null }
+            context = { title: "login form", userInfo: { _id: null } }
             res.render('loginform', context, function(err, html) {
                 res.writeHead(200, { 'Content-type': 'text/html; utf8' });
                 res.end(html);
@@ -45,7 +45,7 @@ module.exports = function(router) {
     });
 
     router.route('/registmemberform').get(function(req, res) {
-        context = { title: "regist member form", userInfo: null }
+        context = { title: "regist member form", userInfo: { _id: null } }
         res.render('registmemberform', context, function(err, html) {
             res.writeHead(200, { 'Content-type': 'text/html; utf8' });
             res.end(html);
@@ -85,7 +85,7 @@ module.exports = function(router) {
 
 
     router.route('/updatememberform').get(function(req, res) {
-        if (!req.session.userInfo) {
+        if (!req.session.userInfo._id) {
             res.redirect('/');
         } else {
             context = { title: "update member form", userInfo: req.session.userInfo }

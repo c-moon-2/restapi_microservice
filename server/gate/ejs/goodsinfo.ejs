@@ -1,0 +1,77 @@
+
+<% include ./HeaderFooter/header.ejs %>
+
+<style>
+.itemtitle{
+    font-size:20px;
+}
+
+.item{
+    font-size:30px;
+    font-weight:600;
+}
+
+</style>
+
+    <section>
+        <article>
+            <div class="container" style="border-top:1px solid #646464;margin-top:50px">
+                <div class="row" style="padding-top:30px;">
+                    <div class="col-lg" style="border:1px solid #646464" >
+                        <img src="static_image/goods/<%=serverData._goodsthumbnail%>" style="margin:30px;width:90%;height:400px">
+                    </div>
+                    <div class="col-lg">
+                        <p style="padding-left:50px; padding-top:40px;">
+                            <span class="itemtitle">상품명&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="item"><%=serverData._goodsname%></span><br><br>
+                            <span class="itemtitle">가격&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="item"><%=serverData._goodsprice%>BP</span><br>
+                            <form>
+                                <!--구매
+                                    수량
+                                    구매버튼
+                                    로그인 세션 제한
+                                -->
+                            </form><br>
+
+<%
+    if(userInfo._id==="admin"){
+%>
+
+                            <div style="padding-left:50px">
+                            <a href="/updategoodsform/<%=serverData._goodsnum%>" class="btn btn-primary" style="width:300px">상품수정</a>
+                            
+
+                            <form method="POST" action="/goods/<%=serverData._goodsnum%>?_method=DELETE" id="deletegoods" style="display:inline">
+                                <button type="button" onclick="javascript:deletesubmit()" class="btn btn-danger">상품삭제</button>
+                            </form>
+                            </div>
+<%
+    }
+%>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="background:#99CC99;margin-top:30px;margin-bottom:30px;padding-top:10px;padding-bottom:10px; border-top:3px solid black;border-bottom:3px solid black" align="center">
+                        <span style="font-weight:500;font-size:20px">상 품 설 명<span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col" align="center" style="margin-bottom:30px">
+                        <img src="static_image/goods/<%=serverData._goodsinfoimage%>"
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+<script type="text/javascript">
+    function deletesubmit(){
+        var deleteok=confirm("상품을 정말 삭제하시겠습니까?");
+        if(deleteok===true){
+            $("#deletegoods").submit();
+        }
+    }
+</script>
+
+<% include ./HeaderFooter/footer.ejs %>

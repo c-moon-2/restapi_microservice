@@ -68,26 +68,31 @@
     text-decoration: none;
 }
 
-#title {
+.title {
     background: black;
     color: yellow;
     font-family: Headliner;
     font-size: 120px;
     padding-bottom: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
     text-shadow: 7px 7px 10px #646464, -7px -7px 10px #646464, 7px -7px 10px #646464, -7px 7px 10px #646464;
     width: 700px;
     text-align: center;
 }
 
-#titlelink:link {
+.title:link {
+    color: yellow;
     text-decoration: none;
 }
 
-#titlelink:hover {
+.title:hover {
+    color: yellow;
     text-decoration: none;
 }
 
-#titlelink:visited {
+.title:visited {
+    color: yellow;
     text-decoration: none;
 }
 

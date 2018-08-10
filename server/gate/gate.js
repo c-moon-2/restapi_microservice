@@ -61,6 +61,7 @@ var server = http.createServer(expressLoader).listen(8000, () => {
                 } else {
                     resQueue[resNum].context.serverData = data.responseData;
                     resQueue[resNum].render(resQueue[resNum].template, resQueue[resNum].context, function(err, html) {
+                        //console.log("gate", err);
                         resQueue[resNum].writeHead(200, { 'Content-type': 'text/html; utf8' });
                         resQueue[resNum].end(html);
                     });

@@ -13,7 +13,7 @@ pool.query("set time_zone = 'Asia/Seoul'", function(err, results, fields) {});
 
 module.exports = {
     listGoods(callback) {
-        pool.query('select _goodsnum, _goodsname, _goodsprice, _goodsThumbnail from goods', (err, results, fields) => {
+        pool.query('select _goodsnum, _goodsname, _goodsprice, _goodsThumbnail from goods order by _goodsnum desc', (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
@@ -49,16 +49,52 @@ module.exports = {
         })
     },
     updateGoods(goodsNum, goodsName, goodsPrice, goodsThumbnail, goodsinfoimage, callback) {
-        pool.query('update goods set ? where _goodsnum=?', [{ _goodsname: goodsName, _goodsprice: goodsPrice, _goodsthumbnail: goodsThumbnail, _goodsinfoimage: goodsinfoimage }, goodsNum], (err, results, fields) => {
-            if (err) {
-                console.log(err);
-                callback("err");
-            } else if (results.changedRows === 0) {
-                callback("fail");
-            } else {
-                callback("success");
-            }
-        })
+
+        if (goodsThumbnail === null && goodsinfoimage === null) {
+            pool.query('update goods set ? where _goodsnum=?', [{ _goodsname: goodsName, _goodsprice: goodsPrice }, goodsNum], (err, results, fields) => {
+                if (err) {
+                    console.log(err);
+                    callback("err");
+                } else if (results.changedRows === 0) {
+                    callback("fail");
+                } else {
+                    callback("success");
+                }
+            })
+        } else if (goodsThumbnail === null) {
+            pool.query('update goods set ? where _goodsnum=?', [{ _goodsname: goodsName, _goodsprice: goodsPrice, _goodsinfoimage: goodsinfoimage }, goodsNum], (err, results, fields) => {
+                if (err) {
+                    console.log(err);
+                    callback("err");
+                } else if (results.changedRows === 0) {
+                    callback("fail");
+                } else {
+                    callback("success");
+                }
+            })
+        } else if (goodsinfoimage === null) {
+            pool.query('update goods set ? where _goodsnum=?', [{ _goodsname: goodsName, _goodsprice: goodsPrice, _goodsthumbnail: goodsThumbnail }, goodsNum], (err, results, fields) => {
+                if (err) {
+                    console.log(err);
+                    callback("err");
+                } else if (results.changedRows === 0) {
+                    callback("fail");
+                } else {
+                    callback("success");
+                }
+            })
+        } else {
+            pool.query('update goods set ? where _goodsnum=?', [{ _goodsname: goodsName, _goodsprice: goodsPrice, _goodsthumbnail: goodsThumbnail, _goodsinfoimage: goodsinfoimage }, goodsNum], (err, results, fields) => {
+                if (err) {
+                    console.log(err);
+                    callback("err");
+                } else if (results.changedRows === 0) {
+                    callback("fail");
+                } else {
+                    callback("success");
+                }
+            })
+        }
     },
     deleteGoods(goodsNum, callback) {
         pool.query('delete from goods where _goodsnum=?', [goodsNum], (err, results, fields) => {

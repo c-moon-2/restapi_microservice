@@ -1,0 +1,46 @@
+
+<% include ./HeaderFooter/header.ejs %>
+
+<style>
+    .item:link{
+        color:black;
+        text-decoration:none;
+    }
+    .item:hover{
+        color:black;
+        text-decoration:none;
+    }
+    .item:visited{
+        color:black;
+        text-decoration:none;
+    }
+
+</style>
+
+    <section>
+        <article>
+            <div class="container">
+                <div class="row">
+
+<%
+    for(var el in serverData){
+%>
+                    <div class="col-lg-4" style="margin-bottom:50px">
+                        <a href="/goods/<%=serverData[el]._goodsnum%>" class="item">
+                            <div class="card" style="width:22rem;margin-right:0px">
+                                <img class="card-img-top " style="width:348px;height:250px" src="./static_image/goods/<%=serverData[el]._goodsThumbnail%>" >
+                                <div class="card-body">
+                                    <h2 class="card-title"><%=serverData[el]._goodsname%></h2>
+                                    <p class="card-text" style="text-align:right;color:#646464"><%=serverData[el]._goodsprice%>BP</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+<%
+    }
+%>
+                </div>
+            </div>
+        </article>
+    </section>
+<% include ./HeaderFooter/footer.ejs %>

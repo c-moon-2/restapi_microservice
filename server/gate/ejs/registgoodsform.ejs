@@ -1,0 +1,112 @@
+
+<% include ./HeaderFooter/header.ejs %>
+
+<style>
+.introduction{
+    font-size:30px;
+}
+</style>
+
+    <section>
+        <article>
+            <div class="container">
+                <div class="row">
+                    <div class="col" align="center" style="padding-top:30px">
+                        <span style="font-weight:600;font-size:20px">상품 등록</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" align="center" >
+                        <div style="width:470px;margin-top:40px;margin-top:30px;margin-bottom:30px">
+                            <form method="POST" action="/goods" id="registgoodsform" enctype="multipart/form-data">
+                                <div class="row"  style="border-top:1px solid #646464;padding-top:5px;" >
+                                    <div class="col-sm-4" style="background:#99CC99">
+                                        <p style="padding-top:4px">상품이름</p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="goodsname" id="goodsname" class="form-control" >
+                                    </div>
+                                </div>
+
+                                <div class="row" style="border-top:1px solid #646464;padding-top:5px">
+                                    <div class="col-sm-4" style="background:#99CC99">
+                                        <p style="padding-top:4px">상품가격</p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" name="goodsprice" id="goodsprice" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row" style="border-top:1px solid #646464;padding-top:5px">
+                                    <div class="col-sm-4" style="background:#99CC99">
+                                        <p style="padding-top:4px">상품이미지</p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="file" name="goodsimg" id="goodsimg" accept="image/jpeg, image/jpg, image/png">
+                                    </div>
+                                </div>
+
+                                <div class="row" style="border-top:1px solid #646464;padding-top:5px">
+                                    <div class="col-sm-4" style="background:#99CC99">
+                                        <p style="padding-top:4px">상품정보이미지</p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="file" name="goodsinfoimg" id="goodsinfoimg" accept="image/jpeg, image/jpg, image/png">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col" style="padding-left:0px">
+                                        <br>
+                                        <button type="button" onclick="javascript:authfilesubmit()" class="btn btn-dark" style="width:500px">상품등록</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <article>
+    </section>
+
+<script type="text/javascript">
+function authfilesubmit(){
+    var goodsname=$("#goodsname").val()
+    var goodsprice=$("#goodsprice").val()
+    var goodsimg=$("#goodsimg").val()
+    var goodsinfoimg=$("#goodsinfoimg").val()
+
+    if(goodsname===""){
+        alert("상품 이름을 채워주세요");
+        return;
+    }else if(goodsprice===""){
+        alert("상품 가격을 채워주세요");
+        return;
+    }else if(goodsimg===""){
+        alert("상품 이미지를 채워주세요");
+        return;
+    }
+
+    if(  goodsimg!== "" ){
+        var ext = $('#goodsimg').val().split('.').pop().toLowerCase();
+        if($.inArray(ext, ['png','jpg','jpeg']) == -1) {
+	        alert('상품 이미지에는 png, jpg, jpeg 파일만 업로드 할수 있습니다.');
+	        return;
+        }
+    }
+    if( goodsinfoimg!== "" ){
+        var ext = $('#goodsinfoimg').val().split('.').pop().toLowerCase();
+        if($.inArray(ext, ['png','jpg','jpeg']) == -1) {
+	        alert('상품 정보 이미지에는 png, jpg, jpeg 파일만 업로드 할수 있습니다.');
+	        return;
+        }
+    }
+    
+    $("#registgoodsform").submit();
+    
+}
+
+
+</script>
+
+<% include ./HeaderFooter/footer.ejs %>
