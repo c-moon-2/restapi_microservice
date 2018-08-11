@@ -13,7 +13,7 @@ pool.query("set time_zone = 'Asia/Seoul'", function(err, results, fields) {});
 
 module.exports = {
     listOrder(orderId, callback) {
-        pool.query('select * from orders where _orderid=?', [orderId], (err, results, fields) => {
+        pool.query('select * from orders where _orderid=? order by _ordernum desc', [orderId], (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");
@@ -24,8 +24,8 @@ module.exports = {
             }
         })
     },
-    registOrder(orderId, orderGoodsname, orderGoodsquantity, orderGoodspaymentprice, orderGoodsthumbnail, callback) {
-        pool.query('insert into orders set ?', { _orderid: orderId, _ordergoodsname: orderGoodsname, _ordergoodsquantity: orderGoodsquantity, _ordergoodspaymentprice: orderGoodspaymentprice, _ordergoodsthumbnail: orderGoodsthumbnail }, (err, results, fields) => {
+    registOrder(orderId, orderGoodsnum, orderGoodsname, orderGoodsquantity, orderGoodspaymentprice, orderGoodsthumbnail, callback) {
+        pool.query('insert into orders set ?', { _orderid: orderId, _ordergoodsnum: orderGoodsnum, _ordergoodsname: orderGoodsname, _ordergoodsquantity: orderGoodsquantity, _ordergoodspaymentprice: orderGoodspaymentprice, _ordergoodsthumbnail: orderGoodsthumbnail }, (err, results, fields) => {
             if (err) {
                 console.log(err);
                 callback("err");

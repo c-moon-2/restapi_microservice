@@ -25,7 +25,7 @@ function listOrder(params, callback) {
 }
 
 function registOrder(params, callback) {
-    DAOorder.registOrder(params.orderId, params.orderGoodsname, params.orderGoodsquantity, params.orderGoodspaymentprice, params.orderGoodsthumbnail, callback);
+    DAOorder.registOrder(params.orderId, params.orderGoodsnum, params.orderGoodsname, params.orderGoodsquantity, params.orderGoodspaymentprice, params.orderGoodsthumbnail, callback);
 }
 
 function deleteOrder(params, callback) {

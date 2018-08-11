@@ -27,6 +27,12 @@ module.exports = function(router) {
             req.method,
             req.url, { id: req.body.id, pw: req.body.pw }
         );
+
+        if (!MicroserverApiClient[Api] || MicroserverApiClient[Api].length === 0) {
+            printwaitinfo(Api, res);
+            return;
+        }
+
         MicroserverApiClient[Api][ApiRequestCount[Api] % MicroserverApiClient[Api].length].client.write(packet);
         ApiRequestCount[Api]++;
         resQueue.Numbering++;
@@ -64,6 +70,12 @@ module.exports = function(router) {
             req.method,
             url, { id: req.query.id }
         );
+
+        if (!MicroserverApiClient[Api] || MicroserverApiClient[Api].length === 0) {
+            printwaitinfo(Api, res);
+            return;
+        }
+
         MicroserverApiClient[Api][ApiRequestCount[Api] % MicroserverApiClient[Api].length].client.write(packet);
         ApiRequestCount[Api]++;
         resQueue.Numbering++;
@@ -79,6 +91,12 @@ module.exports = function(router) {
             req.method,
             req.url, { id: req.body.id, pw: req.body.pw, name: req.body.name }
         )
+
+        if (!MicroserverApiClient[Api] || MicroserverApiClient[Api].length === 0) {
+            printwaitinfo(Api, res);
+            return;
+        }
+
         MicroserverApiClient[Api][0].client.write(packet);
         resQueue.Numbering++;
     });
@@ -109,6 +127,12 @@ module.exports = function(router) {
             "PUT",
             url, { id: req.body.id, pw: req.body.pw }
         )
+
+        if (!MicroserverApiClient[Api] || MicroserverApiClient[Api].length === 0) {
+            printwaitinfo(Api, res);
+            return;
+        }
+
         MicroserverApiClient[Api][0].client.write(packet);
         resQueue.Numbering++;
 
@@ -126,7 +150,20 @@ module.exports = function(router) {
             "DELETE",
             baseUrl, { id: req.params.id }
         )
+
+        if (!MicroserverApiClient[Api] || MicroserverApiClient[Api].length === 0) {
+            printwaitinfo(Api, res);
+            return;
+        }
+
         MicroserverApiClient[Api][0].client.write(packet);
         resQueue.Numbering++;
+    });
+}
+
+function printwaitinfo(Api, res) {
+    res.render('waitinfo', function(err, html) {
+        res.writeHead(200, { 'Content-type': 'text/html; utf8' });
+        res.end(html);
     });
 }

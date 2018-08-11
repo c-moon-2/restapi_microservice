@@ -32,6 +32,7 @@ router.route('/introduction').get(function(req, res) {
 
 require('./router_m')(router);
 require('./router_d')(router);
+require('./router_o')(router);
 
 module.exports = {
     F_router: {

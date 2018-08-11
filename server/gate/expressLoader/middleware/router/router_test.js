@@ -143,7 +143,7 @@ module.exports = function(router) {
         var packet = makePacket(
             resQueue.Numbering,
             req.method,
-            req.url, { orderId: "a", orderGoodsname: 'd', orderGoodsquantity: 2, orderGoodspaymentprice: 2, orderGoodsthumbnail: 'd' }
+            req.url, { orderId: "a", orderGoodsnum: 1, orderGoodsquantity: 2, orderGoodspaymentprice: 2, orderGoodsthumbnail: 'd' }
         )
         MicroserverApiClient[Api][0].client.write(packet);
         resQueue.Numbering++;

@@ -28,7 +28,8 @@ create table orders (
   _ordernum int AUTO_INCREMENT primary key,
   _orderid varchar(16) not null,
   _orderdate timestamp default current_timestamp on update current_timestamp,
-  _ordergoodsname varchar(100) not null,
+  _ordergoodsnum int not null,
+  _ordergoodsname varchar(100) not null, 
   _ordergoodsquantity int not null,
   _ordergoodspaymentprice int not null,
   _ordergoodsthumbnail varchar(255) not null

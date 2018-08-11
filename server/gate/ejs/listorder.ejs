@@ -1,0 +1,95 @@
+<%
+    if(userInfo._id===null){
+%>
+        <script type="text/javascript">alert("로그인후 이용해 주세요");history.go(-1)</script>
+
+<%
+    }
+%>
+
+<% include ./HeaderFooter/header.ejs %>
+
+<style>
+.item{
+    padding-top:20px;
+}
+.item2{
+    padding-top:25px;
+}
+
+.itemlink:link{
+    color:black;
+    text-decoration:none;
+}
+.itemlink:hover{
+    color:black;
+    text-decoration:none;
+}
+.itemlink:visited{
+    color:black;
+    text-decoration:none;
+}
+</style>
+
+    <section>
+        <article>
+            <div class="container"  style="padding-top:50px;padding-bottom:50px;">
+                
+
+<%
+    if(serverData==="fail"){
+%>
+                <div class="row" style="border-top:1px solid #646464;padding-top:10px;padding-bottom:10px;text-align:center">
+                    <div class="col" align="center">
+                        <span style="font-size:30px;font-weight:600">구매 내역이 없습니다.</span>
+                    </div>
+                </div>
+<%
+    }else{
+        for(var el in serverData){
+%>
+                <div class="row" style="border-top:1px solid #646464;padding-top:10px;padding-bottom:10px;text-align:center">
+                    <div class="col-md-1">
+                        <a href="/goods/<%=serverData[el]._ordergoodsnum%>" class="itemlink">
+                        <img src="./static_image/goods/<%=serverData[el]._ordergoodsthumbnail%>" style="width:90px;height:90px; border:1px solid #646464; padding:2px">
+                    </div>
+                    <div class="col-md-3 item">
+                        <span style="font-size:30px"><%=serverData[el]._ordergoodsname%></span></a>
+                    </div>
+                    <div class="col-md-1 item2">
+                        <span style="font-size:18px">수량 : <%=serverData[el]._ordergoodsquantity%></span>
+                    </div>
+                    <div class="col-md-2 item2">
+                        <span style="font-size:18px">결제금액 : <%=serverData[el]._ordergoodspaymentprice%>BP</span>
+                    </div>
+                    <div class="col-md-3 item2">
+                        <%
+                            var tempdate=new Date(serverData[el]._orderdate);
+                            var paydate =tempdate.getFullYear()+"-"+(tempdate.getMonth()+1)+"-"+tempdate.getDate()+" "+tempdate.getHours()+":"+tempdate.getMinutes();
+                        %>
+                        <span style="font-size:18px">결제일시 : <%=paydate%> </span>
+                    </div>
+                    <div class="col-md-1  item">
+                        <form method="POST" action="/order/<%=serverData[el]._ordernum%>?_method=DELETE" id="cancelform" style="display:inline;">
+                            <button type="button" onclick="javascript:orderdeletesubmit()" class="btn btn-danger">주문 취소</button>
+                        </form>
+                    </div>
+                </div>
+<%
+        }
+    }
+%>
+            </div>
+        </article>
+    </section>
+
+<script type="text/javascript">
+    function orderdeletesubmit(){
+        var cancelok=confirm("해당 상품을 주문취소 하시겠습까?");
+        if(cancelok===true){
+            $("#cancelform").submit();
+        }
+    }
+
+</script>
+<% include ./HeaderFooter/footer.ejs %>

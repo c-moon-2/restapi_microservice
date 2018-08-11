@@ -1,5 +1,6 @@
 const http = require('http');
 const expressLoader = require('./expressLoader/expressLoader');
+const distributorInfo = require('./distributorinfo');
 
 var gateInfo = {
     PORT: 8000,
@@ -14,10 +15,10 @@ var ApiRequestCount = global.ApiRequestCount;
 var ConnectedNode = [];
 
 var server = http.createServer(expressLoader).listen(8000, () => {
-    console.log("express server is working!! on PORT:8000")
+    //console.log("express server is working!! on PORT:8000")
 
     var isConnectedToDistributor = false;
-    var clientForDistributor = new client("192.168.0.11", 9000, () => {
+    var clientForDistributor = new client(distributorInfo.IP, distributorInfo.PORT, () => {
         isConnectedToDistributor = true;
         clientForDistributor.write(gateInfo);
     }, () => {

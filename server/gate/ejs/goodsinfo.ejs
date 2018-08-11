@@ -24,12 +24,15 @@
                         <p style="padding-left:50px; padding-top:40px;">
                             <span class="itemtitle">상품명&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="item"><%=serverData._goodsname%></span><br><br>
                             <span class="itemtitle">가격&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="item"><%=serverData._goodsprice%>BP</span><br>
-                            <form>
-                                <!--구매
-                                    수량
-                                    구매버튼
-                                    로그인 세션 제한
-                                -->
+                            <form method="POST" action="/order" id="orderform" style="padding-left:50px">
+                                <span class="itemtitle">수량&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <input type="number" class="form-control" value="1" name="ordergoodsquantity" id="ordergoodsquantity" style="width:90px;display:inline"><br><br>
+                                    <input type="hidden" name ="orderid" value="<%=userInfo._id%>">
+                                    <input type="hidden" name ="ordergoodsnum" value="<%=serverData._goodsnum%>">
+                                    <input type="hidden" name ="ordergoodsname" value="<%=serverData._goodsname%>">
+                                    <input type="hidden" name ="ordergoodsgoodspaymentprice" value="<%=serverData._goodsprice%>">
+                                    <input type="hidden" name ="ordergoodsthumbnail" value="<%=serverData._goodsthumbnail%>">
+                                <button type="button" class="btn btn-dark" style="width:300px" onclick="javascript:ordersubmit()">구매하기</button>                                
                             </form><br>
 
 <%
@@ -71,6 +74,21 @@
         if(deleteok===true){
             $("#deletegoods").submit();
         }
+    }
+
+    function ordersubmit(){
+        if("<%=userInfo._id%>"===""){
+            alert("로그인후 이용해 주세요");
+            return;
+        }
+
+        var ordergoodsquantity=$("#ordergoodsquantity").val()
+        if(ordergoodsquantity===""||ordergoodsquantity<="0"){
+            alert("1이상의 값을 입력해주세요");
+            return;
+        }
+
+        $("#orderform").submit();
     }
 </script>
 

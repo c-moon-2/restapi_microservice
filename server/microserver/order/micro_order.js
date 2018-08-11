@@ -1,9 +1,10 @@
 const orderBusiness = require('./order_business');
+const distributorInfo = require('../distributorinfo');
 
 class order extends require('../../../project_module/server_client_framework/server') {
     constructor(name, uri) {
         super(process.argv[2] ? Number(process.argv[2]) : 9030, "order" + (process.argv[2] ? process.argv[2] : 9030), ["GET/order", "POST/order", "DELETE/order"]);
-        this.connectToDistributor("192.168.0.11", 9000);
+        this.connectToDistributor(distributorInfo.IP, distributorInfo.PORT);
     }
     onRead(socket, data) {
         var packet = { identifyNum: data.identifyNum }
